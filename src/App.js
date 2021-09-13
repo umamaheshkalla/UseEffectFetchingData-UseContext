@@ -1,19 +1,22 @@
 import React from "react";
-import UseEffectFetchData from "./components/UseEffectFetchData";
-import UseEffectFetchDataId from "./components/UseEffectFetchDataId";
-import UseContextB from "./components/UseContextB";
-import DataFetchingOne from "./components/DataFetchingOne";
+import { connect } from "react-redux";
+import { IncAction } from "./actions";
+import { DecAction } from "./actions";
 
-const App = () => {
+const App = ({ local_variable, IncAction, DecAction }) => {
   return (
     <div>
-      <DataFetchingOne />
-      <UseContextB />
-      <UseEffectFetchDataId />
-      <hr />
-      <UseEffectFetchData />
+      <center>
+        <h1>{local_variable}</h1>
+        <button onClick={() => IncAction(2)}>Increment</button>
+        <button onClick={() => DecAction(2)}>Decrement</button>
+      </center>
     </div>
   );
 };
 
-export default App;
+const mapStateToProps = (state) => ({
+  local_variable: state,
+});
+
+export default connect(mapStateToProps, { IncAction, DecAction })(App);
